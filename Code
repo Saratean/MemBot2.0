@@ -18,7 +18,12 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='?', description=description, intents=intents)
 
 
-
+@bot.command()
+async def ins(ctx):
+    await ctx.send( "?mem - мемы с програмистaми.")
+    await ctx.send("?mema - мемы с собачками.")               
+    await ctx.send ("?duck - Картинки с утками.")               
+                   
 
 
 @bot.command()
@@ -40,11 +45,6 @@ async def mem(ctx):
     print(os.listdir('MemBot/images'))
     
     
-
-
-mylist = ["apple", "banana", "cherry"]
-
-print(random.choice(mylist))
     
     
 @bot.command()
@@ -72,8 +72,5 @@ async def duck(ctx):
     image_url = get_duck_image_url()
     await ctx.send(image_url)
     
-    
-    
-
-        
+            
 bot.run("")
