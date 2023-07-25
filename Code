@@ -1,0 +1,79 @@
+import discord
+import os
+import random
+import requests
+
+
+from discord.ext import commands
+
+description = '''An example bot to showcase the discord.ext.commands extension
+module.
+
+There are a number of utility commands being showcased here.'''
+
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='?', description=description, intents=intents)
+
+
+
+
+
+@bot.command()
+async def mem(ctx):
+    
+    RandomNum = random.randint(1,4)
+    if RandomNum == 1:
+        img_name = "mem1.jpg"
+    if RandomNum == 2:
+        img_name = "mem2.jpg"
+    if RandomNum == 3:
+        img_name = "mem3.jpg"
+    if RandomNum == 4:
+        img_name = "mem4.jpg"
+    
+    with open(f'MemBot/images/{img_name}', 'rb') as f:
+            picture = discord.File(f)
+    await ctx.send(file=picture)
+    print(os.listdir('MemBot/images'))
+    
+    
+
+
+mylist = ["apple", "banana", "cherry"]
+
+print(random.choice(mylist))
+    
+    
+@bot.command()
+async def mema(ctx):
+    
+    imaige = ['meme.jpg','meme1.jpg','meme2.jpg','meme3.jpg']
+    img_name  = random.choice(imaige)
+    
+    with open(f'MemBot/images/{img_name}', 'rb') as f:
+            picture = discord.File(f)
+    await ctx.send(file=picture)
+    print(os.listdir('MemBot/images'))
+
+    
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command('duck')
+async def duck(ctx):
+    '''По команде duck вызывает функцию get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+    
+    
+    
+
+        
+bot.run("")
